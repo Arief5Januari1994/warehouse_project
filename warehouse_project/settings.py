@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,10 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jiwtc*sdz@u5k$l)33*c+rawot@%s!nq^(5(+1x28+qat^e@(h'
+SECRET_KEY = config('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
+
 
 ALLOWED_HOSTS = []
 
@@ -80,14 +84,18 @@ WSGI_APPLICATION = 'warehouse_project.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mywarehouseDB',
-        'USER': 'postgres',
-        'PASSWORD': 'Telkom@2016',
-        'HOST': 'localhost',
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'mywarehouseDB',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'Telkom@2016',
+    #     'HOST': 'localhost',
         
-    }
+    # }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+
 }
 
 
@@ -129,12 +137,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "mystatic", "properties_root")
+STATIC_ROOT = os.path.join(BASE_DIR, "mystatic", "properties_root", "staticfiles")
 
 STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, "mystatic", "properties"),
+        os.path.join(BASE_DIR, "mystatic", "properties", "static"),
     )
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "mystatic", "media_root")
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
