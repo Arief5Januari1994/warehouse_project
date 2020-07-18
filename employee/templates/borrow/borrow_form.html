@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="form-group" style="text-align: center; padding: 2%;">
+    <h2 class="display-10">Borrow Transaction Form</h2>
+</div>
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    {{form.employee_nik|as_crispy_field}}
+    {{form.item_name|as_crispy_field}}
+    {{form.project_location|as_crispy_field}}
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <label>Borrow Date*</label>
+            <div>
+                <input class="form-control" type="date" value="{{borrow_date|date:'Y-m-d'}}" id="id_borrow_date" name="borrow_date" class="MyDate">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <label>Return Date*</label>
+            <div>
+                <input class="form-control" type="date" readonly="True" id="id_return_date" name="return_date" class="MyDateReturn">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-paper-plane"></i>
+                Submit</button>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'borrow_list' %}" class="btn btn-secondary btn-block btn-lg">
+                <i class="fas fa-stream"></i> Back to list
+            </a>
+        </div>
+    </div>
+
+</form>
+{% endblock content %}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Borrow Transaction Report</title>
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: #fff;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #000;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #000;
+            background-color:black;
+            color: white;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #000;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table .table {
+            background-color: #fff;
+        }
+
+        .card-header {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Borrow Transaction Report</h1>
+            </div>
+                <table class="table">
+                    <thead >
+                    <tr >
+                        <th>Employee NIK</th>
+                        <th>Employee Name</th>
+                        <th>Item Name</th>
+                        <th>Item Code</th>
+                        <th>Project Location</th>
+                        <th>Borrow Date</th>
+                        <th>Return Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for borrow in borrows %}
+                        <tr>
+                            <td>{{borrow.employee_nik_id}}</td>
+                            <td>{{borrow.employee_nik.fullname}}</td>
+                            <td>{{borrow.item_name.item_name}}</td>
+                            <td>{{borrow.item_name.item_code}}</td>
+                            <td>{{borrow.project_location}}</td>
+                            <td>{{borrow.borrow_date}}</td>
+                            <td>{{borrow.return_date}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</body>
+</html>

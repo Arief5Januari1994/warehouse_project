@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="form-group" style="text-align: center; padding: 2%;">
+    <h2 class="display-10">Item History Service Form</h2>
+</div>
+<form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.item_history_service_id|as_crispy_field}}
+    {{form.item_name|as_crispy_field}}
+    {{form.service_by|as_crispy_field}}
+    {{form.detail_service|as_crispy_field}}
+    <div class="form-group row">
+        <div class="col-sm-8">
+            <label>Service Date*</label>
+            <div>
+                <input class="form-control" type="date" id="id_service_date" name="service_date" class="MyDate">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-8">
+            <label>Picture*</label>
+            <div class="custom-file mb-3">
+                <input class="custom-file-input" type="file" id="id_picture" name="picture">
+                <label class="custom-file-label" for="id_picture">Choose file</label>
+                <div>
+                    <label class="text-danger">*Must upload landscape image</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-paper-plane"></i>
+                Submit</button>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'history_list' %}" class="btn btn-secondary btn-block btn-lg">
+                <i class="fas fa-stream"></i> Back to list
+            </a>
+        </div>
+    </div>
+
+</form>
+{% endblock content %}

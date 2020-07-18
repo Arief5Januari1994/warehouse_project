@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Item History Service Report</title>
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: #fff;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #000;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #000;
+            background-color:black;
+            color: white;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #000;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table .table {
+            background-color: #fff;
+        }
+
+        .card-header {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Item History Service Report</h2>
+            </div>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Item History Service ID</th>
+                    <th>Item Name</th>
+                    <th>Category Item</th>
+                    <th>Service By</th>
+                    <th>Service Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for history in histories %}
+                    <tr>
+                        <td>{{history.item_history_service_id}}</td>
+                        <td>{{history.item_name.item_name}}</td>
+                        <td>{{history.item_name.category}}</td>
+                        <td>{{history.service_by.fullname}}</td>
+                        <td>{{history.service_date}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="form-group" style="text-align: center; padding: 2%;">
+    <h2 class="display-10">Item History Service List</h2>
+</div>
+<table class="table table-responsive table-striped w-auto medium">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Item History Service ID</td>
+            <td>Item Name</td>
+            <td>Category Item</td>
+            <td>Service By</td>
+            <td>Service Date</td>
+            <td style="width: 14%">
+                <a href="{% url 'history_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+            <td style="width: 8%">
+              <a href="{% url 'export_report_item_history' %}" target="_blank" class="btn btn-outline-success">
+                <i class='fas fa-download' style='color:green'></i> All
+              </a>
+          </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for history in history_service_list %}
+        <tr>
+            <td>{{history.item_history_service_id}}</td>
+            <td>{{history.item_name.item_name}}</td>
+            <td>{{history.item_name.category}}</td>
+            <td>{{history.service_by.fullname}}</td>
+            <td>{{history.service_date}}</td>
+            <td>
+                <a href="{% url 'history_detail' history.item_history_service_id %}" class="btn text-secondary px-10">
+                    <i class="fa fa-search fa-lg"></i>
+                </a>
+                <a href="{% url 'history_update' history.item_history_service_id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+                <form action="{% url 'history_delete' history.item_history_service_id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+              <a href="{% url 'export_item_history' history.item_history_service_id %}" class="btn text-secondary px-0" target="_blank">
+                <i class='fas fa-download btn btn-outline-success'  style='font-size:16px;color:green'></i>
+              </a>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if history_service_list.has_other_pages %}
+  <ul class="pagination">
+    {% if history_service_list.has_previous %}
+      <li><a href="?page={{ history_service_list.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in history_service_list.paginator.page_range %}
+      {% if history_service_list.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if history_service_list.has_next %}
+      <li><a href="?page={{ history_service_list.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock content %}

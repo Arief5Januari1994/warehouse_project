@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Item History Service Form Download</title>
+        <meta charset="utf-8">
+        <style type="text/css">
+            @page {
+                size: A4;
+                margin: 1cm;
+            }
+    
+            img {
+                width: 200px;
+                border-radius: 8px;
+            }
+
+            h2 {
+                text-align: center;
+                font-size: 18px;
+            }
+
+            tbody {
+                font-size: 16px;
+            }
+
+            table {
+                table-layout: fixed;
+                width:50px;
+                border-collapse: collapse;
+            }
+
+            tbody tr:nth-child(odd) {
+                background: #eee;
+            }
+    
+        </style>
+    </head>
+    <body>
+        <img src="../img/23.png" / >
+        <hr>
+        <div>
+            <h2>Item History Service Form</h2>
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><strong>Item History Service ID</strong></td>
+                            <td>{{history.item_history_service_id}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td>{{history.item_name.item_name}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Category Item</strong></td>
+                            <td>{{history.item_name.category}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Service By</strong></td>
+                            <td>{{history.service_by.fullname}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Service Date</strong></td>
+                            <td>{{history.service_date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>        
+    </body>
+    <footer>
+
+    </footer>
+</html>

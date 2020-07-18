@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="form-group" style="text-align: center; padding: 2%;">
+    <h2 class="display-10">Borrow Transaction List</h2>
+</div>
+<table class="table table-striped">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Employee NIK</td>
+            <td>Employee Name</td>
+            <td>Item Name</td>
+            <td>Item Code</td>
+            <td style="width: 18%">Project Location</td>
+            <td>Borrow Date</td>
+            <td>Return Date</td>
+            <td style="width: 12%">
+                <a href="{% url 'borrow_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+            <td style="width: 8%">
+              <a href="{% url 'export_data' %}" target="_blank" class="btn btn-outline-success">
+                <i class='fas fa-download' style='color:green'></i> All
+              </a>
+          </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for borrow in borrow_list %}
+        <tr>
+            <td>{{borrow.employee_nik_id}}</td>
+            <td>{{borrow.employee_nik.fullname}}</td>
+            <td>{{borrow.item_name.item_name}}</td>
+            <td>{{borrow.item_name.item_code}}</td>
+            <td>{{borrow.project_location}}</td>
+            <td>{{borrow.borrow_date}}</td>
+            <td>{{borrow.return_date}}</td>
+            <td>
+                <a href="{% url 'borrow_update' borrow.id %}" class="btn text-secondary px-0">
+                    <button type="button" class="btn btn-success btn-sm">Return</button>
+                </a>
+                <form action="{% url 'borrow_delete' borrow.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+              <a href="{% url 'export_data_borrow' borrow.id %}" class="btn text-secondary px-0" target="_blank">
+                <i class='fas fa-download btn btn-outline-success'  style='font-size:18px;color:green'></i>
+              </a>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if borrow_list.has_other_pages %}
+  <ul class="pagination">
+    {% if borrow_list.has_previous %}
+      <li><a href="?page={{ borrow_list.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in borrow_list.paginator.page_range %}
+      {% if borrow_list.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if borrow_list.has_next %}
+      <li><a href="?page={{ borrow_list.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock content %}

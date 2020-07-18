@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="form-group" style="text-align: center; padding: 2%;">
+    <h2 class="display-10">Item History Service Detail</h2>
+</div>
+<br>
+<div class="container">
+    <table class="table table-borderless table-responsive">
+        <tbody>
+            <tr class="d-flex">
+                <td class="col-4">Item History Service ID</td>
+                <td>{{history.item_history_service_id}}</td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-4">Item Code</td>
+                <td>{{history.item_name.item_code}}</td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-4">Item Name</td>
+                <td>{{history.item_name}}</td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-4">Item Merk</td>
+                <td>{{history.item_name.item_merk}}</td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-4">Item Category</td>
+                <td>{{history.item_name.category}}</td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-4">Employee NIK</td>
+                <td>{{history.service_by.employee_nik}}</td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-4">Service By</td>
+                <td>{{history.service_by.fullname}}</td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-4">Detail Service</td>
+                <td>{{history.detail_service}}</td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-4">Picture Service</td>
+                <td class="col-12"><img src="{{history.picture.url}}" style="max-width: 60%; max-height: 50%;"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'history_list' %}" class="btn btn-secondary btn-block btn-lg">
+            <i class="fas fa-stream"></i> Back to list
+        </a>
+    </div>
+</div>
+{% endblock content %}
